@@ -13,7 +13,7 @@ body_estimation = Body('model/body_pose_model.pth')
 print(f"Torch device: {torch.cuda.get_device_name()}")
 if torch.cuda.is_available():
     print('cuda available')
-#輸入資料夾位置
+
 parser = argparse.ArgumentParser(
         description="Process a video annotating poses detected.")
 parser.add_argument('file', type=str, help='Video file location to process.')
@@ -22,11 +22,9 @@ file_path = args.file
 file = listdir(file_path)
 filelist = []
 print(filelist)      
-# 以迴圈處理
+
 for f in file:
-  # 產生檔案的絕對路徑
-  fullpath = join(file_path, f)
-  # 判斷 fullpath 是目錄    
+  fullpath = join(file_path, f) 
   if isdir(fullpath):
       filelist.append(f) 
 print(filelist)    
@@ -42,10 +40,10 @@ for f in filelist:
        else :   
           print('processing : '+file_path+'/'+f+'/'+vid) 
           cap = cv2.VideoCapture(file_path+'/'+f+'/'+vid)  
-          width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))    # 取得影像寬度
-          height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))  # 取得影像高度
-          fourcc = cv2.VideoWriter_fourcc(*'MJPG')          # 設定影片的格式為 MJPG
-          out = cv2.VideoWriter(os.path.abspath(os.path.join(file_path,".."))+'/processed/'+f+'/'+vid,fourcc, 20.0, (width,  height))  # 產生空的影片
+          width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))    
+          height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))  
+          fourcc = cv2.VideoWriter_fourcc(*'MJPG')          
+          out = cv2.VideoWriter(os.path.abspath(os.path.join(file_path,".."))+'/processed/'+f+'/'+vid,fourcc, 20.0, (width,  height)) 
           while(True):
                 ret, oriImg = cap.read()
                 if not ret:
